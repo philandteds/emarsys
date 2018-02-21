@@ -50,11 +50,26 @@ class EmarsysClient
                 }
             }
 
-
-            return $this->send('PUT', 'contact/?create_if_not_exists=1', json_encode($mapping));
+            return $this->sendAddOrModifyContact($mapping);
         } // if user found
 
         return false;
+    }
+
+    public function minimalSubscribe($email, $country) {
+
+        $subscriptionInput = array(
+            'email' => $email,
+            'country' => $country,
+            'email_subscription' => true
+        );
+
+        $mapping = array ();
+        foreach ($subscriptionInput as $field => $value) {
+            $mapping = $this->mapField($field, $value);
+        }
+
+        return $this->sendAddOrModifyContact($mapping);
     }
 
     /**
@@ -106,6 +121,10 @@ class EmarsysClient
 
         return $mapping;
 
+    }
+
+    protected function sendAddOrModifyContact($mapping) {
+        return $this->send('PUT', 'contact/?create_if_not_exists=1', json_encode($mapping));
     }
 
     protected function send($requestType, $endPoint, $requestBody = '')
@@ -160,7 +179,6 @@ class EmarsysClient
                     . $deserialized_response['replyText']
                     . ' [' . $deserialized_response['data'] . ']', $http_error_code);
             }
-
         }
 
         curl_close($ch);
