@@ -15,7 +15,7 @@ class EmarsysClient
         $CountryIDMappings = array();
 
     static $supportedClassIdentifiers = array('user', 'address', 'consumer_profile');
-
+    static $yesNoFieldNames = array('are_pregnant', 'email_subscription');
 
     public function __construct()
     {
@@ -72,6 +72,28 @@ class EmarsysClient
         return $this->sendAddOrModifyContact($mapping);
     }
 
+    public function findFirstContact($emailAddress) {
+
+        $request = array(
+            'keyId' => $this->emailFieldID(),
+            'keyValues' => array ( $emailAddress )
+        );
+
+        $response = $this->send('POST', "contact/getdata", json_encode($request));
+
+        $payload = $response['data'];
+
+        if ($payload) {
+            $contactsFound = $payload['result'];
+            if (count($contactsFound)) {
+                return $this->unmapFields($contactsFound[0]);
+            }
+        }
+
+        // nothing found
+        return false;
+    }
+
     /**
      *
      * @param eZContentObject $contentObject
@@ -102,24 +124,48 @@ class EmarsysClient
         {
             $emarsysFieldId = $this->FieldMappings[$attributeIdentifier];
 
-            switch ($attributeIdentifier) {
-                case 'are_pregnant':
-                case 'email_subscription':
-                    $mapping[$emarsysFieldId] = $this->findYesNoID($attributeValue);
-                    break;
-                case 'country':
-                    $countryID = $this->findCountryIDByCountryName($attributeValue);
-                    if ($countryID) {
-                        $mapping[$emarsysFieldId] = $countryID;
-                    }
-                    break;
-                default:
-                    $mapping[$emarsysFieldId] = $attributeValue;
-                    break;
+            if ($this->isYesNoField($attributeIdentifier)) {
+                $mapping[$emarsysFieldId] = $this->findYesNoID($attributeValue);
+            } else {
+
+                switch ($attributeIdentifier) {
+                    case 'country':
+                        $countryID = $this->findCountryIDByCountryName($attributeValue);
+                        if ($countryID) {
+                            $mapping[$emarsysFieldId] = $countryID;
+                        }
+                        break;
+                    default:
+                        $mapping[$emarsysFieldId] = $attributeValue;
+                        break;
+                }
             }
+
         }
 
         return $mapping;
+    }
+
+    private function unmapFields($emarsysFields) {
+
+        $eZMappings = array();
+
+        foreach ($emarsysFields as $emarsysFieldId => $value) {
+            if ($value !== null) {
+                $eZFieldName = $this->findEzFieldName($emarsysFieldId);
+
+                if ($eZFieldName) {
+                    if ($this->isYesNoField($eZFieldName)) {
+                        $eZMappings[$eZFieldName] = $this->findBooleanByYesNoID($value);
+                    } else {
+                        $eZMappings[$eZFieldName] = $value;
+                    }
+
+                }
+            }
+        }
+
+        return $eZMappings;
 
     }
 
@@ -169,15 +215,19 @@ class EmarsysClient
 
         $curl_error = curl_error($ch);
         if ($curl_error) {
+            $this->logError($curl_error, $requestBody);
             throw new EmarsysCommsException($curl_error);
         } else {
             $http_error_code = curl_getinfo($ch,CURLINFO_HTTP_CODE);
 
             $deserialized_response = json_decode($output, true);
             if ($http_error_code < 200 || $http_error_code >= 300) {
-                throw new EmarsysApiException($deserialized_response['replyCode'] . ': '
+                $message = $deserialized_response['replyCode'] . ': '
                     . $deserialized_response['replyText']
-                    . ' [' . $deserialized_response['data'] . ']', $http_error_code);
+                    . ' [' . $deserialized_response['data'] . ']';
+
+                $this->logError($message, $requestBody);
+                throw new EmarsysApiException($message, $http_error_code);
             }
         }
 
@@ -188,6 +238,37 @@ class EmarsysClient
     private function isSupportedContentClass($contentObject)
     {
         return in_array($contentObject->attribute('class_identifier'), self::$supportedClassIdentifiers);
+    }
+
+    private function isYesNoField($fieldName) {
+        return in_array($fieldName, self::$yesNoFieldNames);
+    }
+
+    protected function logError($errorMessage, $requestJson) {
+
+        $row = new EmarsysApiErrorLog(
+            array(
+                'error_message' => $errorMessage,
+                'request' => $requestJson
+            )
+        );
+
+        $row->store();
+    }
+
+    private function emailFieldID() {
+        return $this->FieldMappings['email'];
+    }
+
+    private function findEzFieldName($emarsysFieldIDToFind) {
+
+        foreach ($this->FieldMappings as $eZFieldName => $emarSysFieldID) {
+            if ($emarSysFieldID == $emarsysFieldIDToFind) {
+                return $eZFieldName;
+            }
+        }
+
+        return false;
     }
 
     private function findCountryIDByCountryName($countryNameToFind) {
@@ -212,4 +293,17 @@ class EmarsysClient
             return 2;
         }
     }
+
+    private function findBooleanByYesNoID($yesNoId) {
+
+        switch ($yesNoId) {
+            case "1":
+                return true;
+            default:
+                return false;
+        }
+
+    }
+
+
 }
