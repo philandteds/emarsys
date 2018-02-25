@@ -56,17 +56,17 @@ class EmarsysClient
         return false;
     }
 
-    public function minimalSubscribe($email, $country) {
+    public function minimalSubscribe($email, $country, $opt_in) {
 
         $subscriptionInput = array(
             'email' => $email,
             'country' => $country,
-            'email_subscription' => true
+            'email_subscription' => $opt_in
         );
 
         $mapping = array ();
         foreach ($subscriptionInput as $field => $value) {
-            $mapping = $this->mapField($field, $value);
+            $mapping = $this->mapField($field, $value, $mapping);
         }
 
         return $this->sendAddOrModifyContact($mapping);
