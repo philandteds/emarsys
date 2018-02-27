@@ -9,47 +9,24 @@ $(document).ready(function() {
     $("form#emarsys-newsletter-signup button").click(function() {
         var form = findEmarsysNewsletterForm();
 
+        toggleEmarsysSpinner(true);
+
         submitEmarsysNewsletterSignup(
             form.attr("action"),
             form.find("input[name='email']").val(),
-            form.find("select[name='country']").val()
+            form.find("select[name='country']").val(),
+            true, // optIn
+            function(result) { // success
+                form.find("button").hide();
+                form.find(".subscribe-successful").show();
+                } ,
+            function(result) { // complete
+                toggleEmarsysSpinner(false);
+            }
         );
 
         return false;
-
     });
-
-
-    function submitEmarsysNewsletterSignup(url, email, country) {
-
-        var form = findEmarsysNewsletterForm();
-
-        var rawData = {
-            'email': email,
-            'country': country,
-            'opt_in': true
-        };
-
-        var json = JSON.stringify(rawData);
-
-        toggleEmarsysSpinner(true);
-
-        $.ajax({
-            method: 'post',
-            url: url,
-            data: json,
-            success: function(result) {
-                form.find("button").hide();
-                form.find(".subscribe-successful").show();
-
-                console.log("Emarsys submission success: " + result);
-            },
-            complete: function() {
-                toggleEmarsysSpinner(false);
-                console.log("Emarsys submission complete");
-            }
-        });
-    }
 
     function toggleEmarsysSpinner(show) {
         var form = findEmarsysNewsletterForm();
@@ -63,3 +40,23 @@ $(document).ready(function() {
 
 });
 
+function submitEmarsysNewsletterSignup(url, email, country, optIn,  success, complete) {
+
+    debugger;
+
+    var rawData = {
+        'email': email,
+        'country': country,
+        'opt_in': optIn
+    };
+
+    var json = JSON.stringify(rawData);
+
+    $.ajax({
+        method: 'post',
+        url: url,
+        data: json,
+        success: success,
+        complete: complete
+    });
+}
