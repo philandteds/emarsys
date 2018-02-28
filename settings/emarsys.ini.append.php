@@ -28,9 +28,6 @@ FieldMappings[fax]=16
 FieldMappings[are_pregnant]=1510
 FieldMappings[email_subscription]=31
 
-# this one is going to require some transformation
-#FieldMappings[email_subscription]=31
-
 CountryIDMappings[]
 
 CountryIDMappings[US]=185

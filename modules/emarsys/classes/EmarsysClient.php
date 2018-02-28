@@ -14,8 +14,14 @@ class EmarsysClient
         $FieldMappings = array(),
         $CountryIDMappings = array();
 
+
+    const EMAIL_ADDRESS_FIELD_NAME = "email";
+    const EMAIL_SUBSCRIPTION_FIELD_NAME = "email_subscription";
+    const COUNTRY_FIELD_NAME = "country";
+
     static $supportedClassIdentifiers = array('user', 'address', 'consumer_profile');
-    static $yesNoFieldNames = array('are_pregnant', 'email_subscription');
+    static $yesNoFieldNames = array('are_pregnant', self::EMAIL_SUBSCRIPTION_FIELD_NAME);
+
 
     public function __construct()
     {
@@ -34,7 +40,7 @@ class EmarsysClient
         if ($user) {
 
             $mapping = array(
-                $this->FieldMappings['email'] => $user->attribute('email')
+                $this->FieldMappings[self::EMAIL_ADDRESS_FIELD_NAME] => $user->attribute('email')
             );
 
             /** @var eZContentObject $contentObject */
@@ -56,12 +62,26 @@ class EmarsysClient
         return false;
     }
 
+    public function addOrUpdateContactArbitraryFields($fields)
+    {
+        if (!$fields) {
+            return false;
+        }
+
+        if (!array_key_exists(self::EMAIL_ADDRESS_FIELD_NAME, $fields)) {
+            return false;
+        }
+
+        return $this->sendAddOrModifyContact($fields);
+    }
+
+
     public function minimalSubscribe($email, $country, $opt_in) {
 
         $subscriptionInput = array(
-            'email' => $email,
-            'country' => $country,
-            'email_subscription' => $opt_in
+            self::EMAIL_ADDRESS_FIELD_NAME => $email,
+            self::COUNTRY_FIELD_NAME => $country,
+            self::EMAIL_SUBSCRIPTION_FIELD_NAME => $opt_in
         );
 
         $mapping = array ();
@@ -94,11 +114,16 @@ class EmarsysClient
         return false;
     }
 
-    /**
-     *
-     * @param eZContentObject $contentObject
-     * @param array $mapping
-     */
+    public function isOptedIn($emailAddress) {
+        $contact = $this->findFirstContact($emailAddress);
+
+        if (!$contact) {
+            return false;
+        }
+
+        return $contact[self::EMAIL_SUBSCRIPTION_FIELD_NAME] ?: false;
+    }
+
     private function mapFields($contentObject, $mapping) {
 
         $dataMap = $contentObject->dataMap();
@@ -129,7 +154,7 @@ class EmarsysClient
             } else {
 
                 switch ($attributeIdentifier) {
-                    case 'country':
+                    case self::COUNTRY_FIELD_NAME:
                         $countryID = $this->findCountryIDByCountryName($attributeValue);
                         if ($countryID) {
                             $mapping[$emarsysFieldId] = $countryID;
@@ -257,7 +282,7 @@ class EmarsysClient
     }
 
     private function emailFieldID() {
-        return $this->FieldMappings['email'];
+        return $this->FieldMappings[self::EMAIL_ADDRESS_FIELD_NAME];
     }
 
     private function findEzFieldName($emarsysFieldIDToFind) {
@@ -304,6 +329,5 @@ class EmarsysClient
         }
 
     }
-
 
 }

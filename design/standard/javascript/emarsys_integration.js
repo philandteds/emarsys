@@ -6,7 +6,7 @@ $(document).ready(function() {
         $.fancybox( { href: "#emarsys-newsletter-signup-modal" } );
     });
 
-    $("form#emarsys-newsletter-signup button").click(function() {
+    $("form#emarsys-newsletter-signup button.submit").click(function() {
         var form = findEmarsysNewsletterForm();
 
         toggleEmarsysSpinner(true);
@@ -17,7 +17,8 @@ $(document).ready(function() {
             form.find("select[name='country']").val(),
             true, // optIn
             function(result) { // success
-                form.find("button").hide();
+                form.find("button.submit").hide();
+                form.find(".field-holder").hide();
                 form.find(".subscribe-successful").show();
                 } ,
             function(result) { // complete
@@ -27,6 +28,22 @@ $(document).ready(function() {
 
         return false;
     });
+
+    $("form#emarsys-newsletter-signup button.demographic-decline").click(function() {
+        $.fancybox.close();
+    });
+
+    $("form#emarsys-newsletter-signup button.demographic-accept").click(function() {
+        var form = findEmarsysNewsletterForm();
+
+        var email = form.find("input[name='email']").val();
+        if (email) {
+            window.location.href=form.attr("data-demographics-url") + "?email=" + email;
+        }
+
+        return false;
+    });
+
 
     function toggleEmarsysSpinner(show) {
         var form = findEmarsysNewsletterForm();
@@ -41,8 +58,6 @@ $(document).ready(function() {
 });
 
 function submitEmarsysNewsletterSignup(url, email, country, optIn,  success, complete) {
-
-    debugger;
 
     var rawData = {
         'email': email,

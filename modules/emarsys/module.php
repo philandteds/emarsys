@@ -9,6 +9,14 @@ $ViewList['signup'] = array(
     'unordered_params' => array(),
     'params' => array(  ) );
 
+$ViewList['demographics'] = array(
+    'script' => 'demographics.php',
+    'unordered_params' => array(),
+    'params' => array(  ) ,
+    'single_post_actions' => array(
+        'SubmitButton' => 'Submit')
+    );
+
 $FunctionList = array();
 
 ?>
