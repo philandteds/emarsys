@@ -105,7 +105,7 @@ class EmarsysClient
 
         if ($payload) {
             $contactsFound = $payload['result'];
-            if (count($contactsFound)) {
+            if ($contactsFound && count($contactsFound) > 0) {
                 return $this->unmapFields($contactsFound[0]);
             }
         }

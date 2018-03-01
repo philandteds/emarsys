@@ -2,6 +2,17 @@ $(document).ready(function() {
 
 
     $(".emarsys-newsletter-signup-modal-trigger").click(function() {
+        // reset the fancybox back to default state, in case it is re-entered
+        var form = findEmarsysNewsletterForm();
+        form.find("button.submit, .field-holder").show();
+        form.find(".subscribe-successful").hide();
+
+        // attempt to default the country box from the siteaccess select list
+        try {
+            var currentSiteaccess = $(".languages-nav-current:first a").text();
+            form.find("select[name='country']").val(currentSiteaccess);
+        } catch (err) {}
+
         // the standard fancybox approach of attaching to a <a> tag does not work. Manually trigger the fancybox.
         $.fancybox( { href: "#emarsys-newsletter-signup-modal" } );
     });
