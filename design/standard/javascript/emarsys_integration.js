@@ -27,6 +27,8 @@ $(document).ready(function() {
             form.find("input[name='email']").val(),
             form.find("select[name='country']").val(),
             true, // optIn
+            null, // first name
+            null, // last name
             function(result) { // success
                 form.find("button.submit").hide();
                 form.find(".field-holder").hide();
@@ -68,12 +70,14 @@ $(document).ready(function() {
 
 });
 
-function submitEmarsysNewsletterSignup(url, email, country, optIn,  success, complete) {
+function submitEmarsysNewsletterSignup(url, email, country, optIn,  firstName, lastName, success, complete) {
 
     var rawData = {
         'email': email,
         'country': country,
-        'opt_in': optIn
+        'opt_in': optIn,
+        'first_name': firstName,
+        'last_name': lastName
     };
 
     var json = JSON.stringify(rawData);

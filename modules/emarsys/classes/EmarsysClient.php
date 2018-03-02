@@ -18,6 +18,8 @@ class EmarsysClient
     const EMAIL_ADDRESS_FIELD_NAME = "email";
     const EMAIL_SUBSCRIPTION_FIELD_NAME = "email_subscription";
     const COUNTRY_FIELD_NAME = "country";
+    const FIRST_NAME_FIELD_NAME = "first_name";
+    const LAST_NAME_FIELD_NAME = "last_name";
 
     static $supportedClassIdentifiers = array('user', 'address', 'consumer_profile');
     static $yesNoFieldNames = array('are_pregnant', self::EMAIL_SUBSCRIPTION_FIELD_NAME);
@@ -76,12 +78,14 @@ class EmarsysClient
     }
 
 
-    public function minimalSubscribe($email, $country, $opt_in) {
+    public function minimalSubscribe($email, $country, $optIn, $firstName, $lastName) {
 
         $subscriptionInput = array(
             self::EMAIL_ADDRESS_FIELD_NAME => $email,
             self::COUNTRY_FIELD_NAME => $country,
-            self::EMAIL_SUBSCRIPTION_FIELD_NAME => $opt_in
+            self::EMAIL_SUBSCRIPTION_FIELD_NAME => $optIn,
+            self::FIRST_NAME_FIELD_NAME => $firstName,
+            self::LAST_NAME_FIELD_NAME => $lastName
         );
 
         $mapping = array ();
