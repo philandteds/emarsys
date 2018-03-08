@@ -3,22 +3,36 @@ $(document).ready(function() {
 
     $(".emarsys-newsletter-signup-modal-trigger").click(function() {
         // reset the fancybox back to default state, in case it is re-entered
-        var form = findEmarsysNewsletterForm();
-        form.find("button.submit, .field-holder").show();
-        form.find(".subscribe-successful").hide();
+        var modal = findEmarsysModal();
+
+        modal.find(".page-1").show();
+        modal.find(".page-1-success").hide();
+        modal.find(".page-2").hide();
+        modal.find(".page-2-success").hide();
 
         // attempt to default the country box from the siteaccess select list
         try {
             var currentSiteaccess = $(".languages-nav-current:first a").text();
-            form.find("select[name='country']").val(currentSiteaccess);
+            modal.find("select[name='country']").val(currentSiteaccess);
         } catch (err) {}
 
         // the standard fancybox approach of attaching to a <a> tag does not work. Manually trigger the fancybox.
         $.fancybox( { href: "#emarsys-newsletter-signup-modal" } );
+
+        $.validate({
+            form: "form#emarsys-newsletter-signup, form#emarsys-newsletter-signup-page-2",
+            errorMessagePosition: 'inline'
+        });
     });
 
     $("form#emarsys-newsletter-signup button.submit").click(function() {
         var form = findEmarsysNewsletterForm();
+        var modal = findEmarsysModal();
+
+        var valid = form.isValid(null, {}, true);
+        if (!valid) {
+            return false;
+        }
 
         toggleEmarsysSpinner(true);
 
@@ -30,9 +44,8 @@ $(document).ready(function() {
             null, // first name
             null, // last name
             function(result) { // success
-                form.find("button.submit").hide();
-                form.find(".field-holder").hide();
-                form.find(".subscribe-successful").show();
+                modal.find(".page-1").hide();
+                modal.find(".page-1-success").show();
                 } ,
             function(result) { // complete
                 toggleEmarsysSpinner(false);
@@ -42,31 +55,65 @@ $(document).ready(function() {
         return false;
     });
 
-    $("form#emarsys-newsletter-signup button.demographic-decline").click(function() {
+    $("#emarsys-newsletter-signup-modal .demographic-decline").click(function() {
         $.fancybox.close();
     });
 
-    $("form#emarsys-newsletter-signup button.demographic-accept").click(function() {
-        var form = findEmarsysNewsletterForm();
+    $("#emarsys-newsletter-signup-modal .demographic-accept").click(function() {
 
-        var email = form.find("input[name='email']").val();
-        if (email) {
-            window.location.href=form.attr("data-demographics-url") + "?email=" + email;
-        }
+        var modal = findEmarsysModal();
+
+        modal.find(".page-1-success").hide();
+        modal.find(".page-2").show();
+
+        return false;
+    });
+
+    $("form#emarsys-newsletter-signup-page-2 .demographic-submit").click(function () {
+        var page1Form = findEmarsysNewsletterForm();
+        var page2Form = findEmarsysNewsletterFormPage2();
+        var modal = findEmarsysModal();
+
+        var email = page1Form.find("input[name='email']").val();
+        page2Form.find("input[name='email']").val(email);
+
+        toggleEmarsysSpinner(true);
+
+        $.ajax({
+            method: 'post',
+            url: page2Form.attr('action'),
+            data: page2Form.serialize(),
+            success: function() {
+
+            },
+            complete: function() {
+                toggleEmarsysSpinner(false);
+
+                modal.find(".page-2").hide();
+                modal.find(".page-2-success").show();
+            }
+        });
 
         return false;
     });
 
 
     function toggleEmarsysSpinner(show) {
-        var form = findEmarsysNewsletterForm();
-        form.find(".spinner").toggle(show);
+        $(".emarsys-spinner").toggle(show);
     }
 
+    function findEmarsysModal() {
+        return $("#emarsys-newsletter-signup-modal");
+    }
 
     function findEmarsysNewsletterForm() {
         return $("form#emarsys-newsletter-signup");
     }
+
+    function findEmarsysNewsletterFormPage2() {
+        return $("form#emarsys-newsletter-signup-page-2");
+    }
+
 
 });
 
