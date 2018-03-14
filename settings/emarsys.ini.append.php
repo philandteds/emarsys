@@ -2,8 +2,8 @@
 
 [EmarsysAPI]
 URL=https://api.emarsys.net/api/v2/
-Username=mountainbuggy002
-Secret=IfKg6VQs1MPNYsmNw9kD
+Username=
+Secret=
 
 FieldMappings[]
 # user
