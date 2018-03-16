@@ -10,6 +10,7 @@ FieldMappings[]
 FieldMappings[first_name]=1
 FieldMappings[last_name]=2
 FieldMappings[email]=3
+FieldMappings[email_subscription]=31
 
 # address
 FieldMappings[street_address]=10
@@ -21,10 +22,24 @@ FieldMappings[phone]=15
 FieldMappings[fax]=16
 
 # consumer profile
+FieldMappings[i_am_currently_pregnant]=1510
+FieldMappings[i_am_expecting_my_first_child]=1717
+FieldMappings[i_am_expecting_my_next_child]=1718
+FieldMappings[i_have_my_first_child]=2929
+FieldMappings[i_have_more_than_one_child]=2930
+FieldMappings[i_am_shopping_for_someone_else]=2931
 
 
-FieldMappings[are_pregnant]=1510
-FieldMappings[email_subscription]=31
+
+# These fields must be mapped to Yes = 1, No = 2 when passing through to Emarsys
+YesNoFields[]
+YesNoFields[]=email_subscription
+YesNoFields[]=i_am_currently_pregnant
+YesNoFields[]=i_am_expecting_my_first_child
+YesNoFields[]=i_have_my_first_child
+YesNoFields[]=i_have_more_than_one_child
+YesNoFields[]=i_am_shopping_for_someone_else
+
 
 CountryIDMappings[]
 

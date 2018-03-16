@@ -12,7 +12,8 @@ class EmarsysClient
         $ApiSecret,
         $ApiUrl,
         $FieldMappings = array(),
-        $CountryIDMappings = array();
+        $CountryIDMappings = array(),
+        $YesNoFieldNames = array();
 
 
     const EMAIL_ADDRESS_FIELD_NAME = "email";
@@ -22,8 +23,6 @@ class EmarsysClient
     const LAST_NAME_FIELD_NAME = "last_name";
 
     static $supportedClassIdentifiers = array('user', 'address', 'consumer_profile');
-    static $yesNoFieldNames = array('are_pregnant', self::EMAIL_SUBSCRIPTION_FIELD_NAME);
-
 
     public function __construct()
     {
@@ -34,6 +33,7 @@ class EmarsysClient
         $this->ApiSecret = $ini->variable("EmarsysAPI", "Secret");
         $this->FieldMappings = $ini->variable("EmarsysAPI", "FieldMappings");
         $this->CountryIDMappings = $ini->variable("EmarsysAPI", "CountryIDMappings");
+        $this->YesNoFieldNames = $ini->variable("EmarsysAPI", "YesNoFields");
     }
 
     public function addOrUpdateContact($userId)
@@ -74,7 +74,12 @@ class EmarsysClient
             return false;
         }
 
-        return $this->sendAddOrModifyContact($fields);
+        $mappedFields = array();
+        foreach ($fields as $field => $value) {
+            $mappedFields = $this->mapField($field, $value, $mappedFields);
+        }
+
+        return $this->sendAddOrModifyContact($mappedFields);
     }
 
 
@@ -270,7 +275,7 @@ class EmarsysClient
     }
 
     private function isYesNoField($fieldName) {
-        return in_array($fieldName, self::$yesNoFieldNames);
+        return in_array($fieldName, $this->YesNoFieldNames);
     }
 
     protected function logError($errorMessage, $requestJson) {
