@@ -6,7 +6,6 @@ $(document).ready(function() {
         var modal = findEmarsysModal();
 
         modal.find(".page-1").show();
-        modal.find(".page-1-success").hide();
         modal.find(".page-2").hide();
         modal.find(".page-2-success").hide();
 
@@ -45,26 +44,12 @@ $(document).ready(function() {
             null, // last name
             function(result) { // success
                 modal.find(".page-1").hide();
-                modal.find(".page-1-success").show();
+                modal.find(".page-2").show();
                 } ,
             function(result) { // complete
                 toggleEmarsysSpinner(false);
             }
         );
-
-        return false;
-    });
-
-    $("#emarsys-newsletter-signup-modal .demographic-decline").click(function() {
-        $.fancybox.close();
-    });
-
-    $("#emarsys-newsletter-signup-modal .demographic-accept").click(function() {
-
-        var modal = findEmarsysModal();
-
-        modal.find(".page-1-success").hide();
-        modal.find(".page-2").show();
 
         return false;
     });

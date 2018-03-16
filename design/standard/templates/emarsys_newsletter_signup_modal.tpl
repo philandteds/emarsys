@@ -51,28 +51,6 @@
         </div>
     </form>
 
-    {* Initial signup complete. Ask for more info... *}
-    <div class="page-1-success">
-
-        <div class="row form-group">
-            <div class="col-xs-12">
-                <h4>{'Sign up for our newsletter'|i18n}</h4>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-xs-12 text-center">
-                <p>{'Thanks for signing up for our newsletter!'|i8n()}</p>
-                <p><strong>Let us know a little about you...</strong></p>
-
-                <button class="demographic-accept btn">Sure thing!</button>
-                <button type="button" class="demographic-decline btn">No thanks</button>
-            </div>
-        </div>
-
-
-    </div>
-
     {* Demographics page *}
     <form id="emarsys-newsletter-signup-page-2" class="page-2" method="post" action={'emarsys/demographics'|ezurl}>
 

@@ -21,9 +21,7 @@ FieldMappings[phone]=15
 FieldMappings[fax]=16
 
 # consumer profile
-#FieldMappings[children_under_5]
-#FieldMappings[youngest_born_date]=1508
-#FieldMappings[next_born_date]
+
 
 FieldMappings[are_pregnant]=1510
 FieldMappings[email_subscription]=31
