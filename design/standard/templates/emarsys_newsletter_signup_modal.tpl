@@ -6,6 +6,10 @@
     #emarsys-newsletter-signup-modal .help-block.form-error {
         display: none;
     }
+
+    #emarsys-newsletter-signup-modal .has-error label, label.has-error {
+        color: red;
+    }
 </style>
 {/literal}
 
@@ -24,13 +28,20 @@
 
         <div class="field-holder"> {* groups the fields into a unit. Hidden by JS on successful submission. *}
             <div class="row form-group">
-                <div class="col-xs-4">Email <span class="required">*</span></div>
+                <div class="col-xs-4">{'Email'|i18n('extension/pt')} <span class="required">*</span></div>
                 <div class="col-xs-8">
                     <input type="email" name="email" required class="form-control" data-validation="required" data-validation-error-msg="{'Please enter your email address'|i18n('extension/pt')}"/>
                 </div>
             </div>
             <div class="row form-group">
-                <div class="col-xs-4">Country <span class="required">*</span></div>
+                <div class="col-xs-4">{'First Name'|i18n('extension/pt')} <span class="required">*</span></div>
+                <div class="col-xs-8">
+                    <input type="text" name="first_name" required class="form-control" data-validation="required" data-validation-error-msg="{'Please enter your first name'|i18n('extension/pt')}"/>
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col-xs-4">{'Country'|i18n('extension/pt')} <span class="required">*</span></div>
                 <div class="col-xs-8">
                     <select name="country" class="form-control" data-validation="required">
                         <option value=""></option>
@@ -41,11 +52,19 @@
                     </select>
                 </div>
             </div>
+
+            <div class="row">
+                <div class="col-xs-8 col-xs-push-4"><label><input name="opt_in" type="checkbox" required data-validation="required" data-validation-error-msg="{'To sign up the newsletter, you must agree to receive emails'|i18n('extension/pt')}"> I agree to receive email from phil&amp;teds</label></div>
+            </div>
+            <div class="row">
+                <div class="col-xs-8 col-xs-push-4"><label><input name="accept_privacy_policy" type="checkbox" required data-validation="required" data-validation-error-msg="{'To sign up the newsletter, you must agree to receive emails'|i18n('extension/pt')}"> I agree to the phil&amp;teds <a href={"/Support/Privacy-Policy"|ezurl} target="_blank">Privacy Policy</a></label></div>
+            </div>
+
         </div>
 
         <div class="row">
             <div class="col-xs-8 col-xs-push-4">
-                <button type="submit" class="btn btn-primary submit">{'Subscribe'|i18n}</button>
+                <button type="submit" class="btn btn-primary submit">{'Subscribe'|i18n('extension/pt')}</button>
                 <img src={"/icons/spiffygif_24x24.gif"|ezimage} alt="" class="emarsys-spinner" style="display:none;"/>
             </div>
         </div>
@@ -56,7 +75,7 @@
 
         <div class="row">
             <div class="col-xs-12">
-                <h2>A little more about me...</h2>
+                <h2>{'A little more about me...'|i18n('extension/pt')}</h2>
             </div>
         </div>
 
@@ -77,13 +96,13 @@
 
         <div class="row form-group">
             <div class="col-xs-12">
-                <h4>{'Thanks for signing up'|i18n}</h4>
+                <h4>{'Thanks for signing up'|i18n('extension/pt')}</h4>
             </div>
         </div>
 
         <div class="row">
             <div class="col-xs-12 text-center">
-                <p>{'Welcome to the family!'|i8n}</p>
+                <p>{'Welcome to the family!'|i8n('extension/pt')}</p>
             </div>
         </div>
     </div>

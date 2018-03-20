@@ -40,7 +40,7 @@ $(document).ready(function() {
             form.find("input[name='email']").val(),
             form.find("select[name='country']").val(),
             true, // optIn
-            null, // first name
+            form.find("input[name='first_name']").val(), // first name
             null, // last name
             function(result) { // success
                 modal.find(".page-1").hide();
