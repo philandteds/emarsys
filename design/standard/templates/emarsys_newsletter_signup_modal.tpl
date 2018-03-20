@@ -22,7 +22,7 @@
 
         <div class="row form-group">
             <div class="col-xs-12">
-                <h4>{'Sign up for our newsletter'|i18n}</h4>
+                <h4>{'Sign up for our newsletter'|i18n('extension/pt')}</h4>
             </div>
         </div>
 
@@ -83,7 +83,7 @@
 
         <div class="row form-group">
             <div class="col-xs-12">
-                <input name="SubmitButton" type="submit" class="demographic-submit btn" value="Submit"/>
+                <input name="SubmitButton" type="submit" class="demographic-submit btn" value="{'Subscribe'|i18n('extension/pt')}"/>
                 <img src={"/icons/spiffygif_24x24.gif"|ezimage} alt="" class="emarsys-spinner" style="display:none;"/>
             </div>
         </div>
