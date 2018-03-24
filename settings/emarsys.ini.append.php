@@ -1,5 +1,8 @@
 <?php /* #?ini charset="utf-8"?
 
+[WebExtend]
+MerchantID=
+
 [EmarsysAPI]
 URL=https://api.emarsys.net/api/v2/
 Username=
