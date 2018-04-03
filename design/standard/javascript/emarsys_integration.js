@@ -16,7 +16,10 @@ $(document).ready(function() {
         } catch (err) {}
 
         // the standard fancybox approach of attaching to a <a> tag does not work. Manually trigger the fancybox.
-        $.fancybox( { href: "#emarsys-newsletter-signup-modal" } );
+        $.fancybox({ 
+            href: "#emarsys-newsletter-signup-modal",
+            wrapCSS: 'emarsys'
+        });
 
         $.validate({
             form: "form#emarsys-newsletter-signup, form#emarsys-newsletter-signup-page-2",
