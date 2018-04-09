@@ -1,5 +1,20 @@
 $(document).ready(function() {
 
+    function toggleEmarsysSpinner(show) {
+        $(".emarsys-spinner").toggle(show);
+    }
+
+    function findEmarsysModal() {
+        return $("#emarsys-newsletter-signup-modal");
+    }
+
+    function findEmarsysNewsletterForm() {
+        return $("form#emarsys-newsletter-signup");
+    }
+
+    function findEmarsysNewsletterFormPage2() {
+        return $("form#emarsys-newsletter-signup-page-2");
+    }
 
     $(".emarsys-newsletter-signup-modal-trigger").click(function() {
         // reset the fancybox back to default state, in case it is re-entered
@@ -18,7 +33,9 @@ $(document).ready(function() {
         // the standard fancybox approach of attaching to a <a> tag does not work. Manually trigger the fancybox.
         $.fancybox({ 
             href: "#emarsys-newsletter-signup-modal",
-            wrapCSS: 'emarsys'
+            wrapCSS: 'emarsys',
+            autoCenter: true,
+            padding: 0
         });
 
         $.validate({
@@ -85,22 +102,6 @@ $(document).ready(function() {
         return false;
     });
 
-
-    function toggleEmarsysSpinner(show) {
-        $(".emarsys-spinner").toggle(show);
-    }
-
-    function findEmarsysModal() {
-        return $("#emarsys-newsletter-signup-modal");
-    }
-
-    function findEmarsysNewsletterForm() {
-        return $("form#emarsys-newsletter-signup");
-    }
-
-    function findEmarsysNewsletterFormPage2() {
-        return $("form#emarsys-newsletter-signup-page-2");
-    }
 
 
 });
