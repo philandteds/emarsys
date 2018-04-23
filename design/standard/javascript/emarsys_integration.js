@@ -61,7 +61,7 @@ $(document).ready(function() {
             form.find("select[name='country']").val(),
             true, // optIn
             form.find("input[name='first_name']").val(), // first name
-            null, // last name
+            form.find("input[name='last_name']").val(), // last name
             function(result) { // success
                 modal.find(".page-1").hide();
                 modal.find(".page-2").show();
@@ -81,13 +81,6 @@ $(document).ready(function() {
 
         var email = page1Form.find("input[name='email']").val();
         page2Form.find("input[name='email']").val(email);
-        // page2Form.find("input[name='expecting']").val(expecting);
-        // page2Form.find("input[name='first_child']").val(firstChild);
-        // page2Form.find("input[name='next_child']").val(nextChild);
-        // page2Form.find("input[name='multi_child']").val(multiChild);
-        // page2Form.find("input[name='on_behalf']").val(onBehalf);
-        // page2Form.find("input[name='other']").val(other);
-
 
         toggleEmarsysSpinner(true);
 
