@@ -81,6 +81,13 @@ $(document).ready(function() {
 
         var email = page1Form.find("input[name='email']").val();
         page2Form.find("input[name='email']").val(email);
+        // page2Form.find("input[name='expecting']").val(expecting);
+        // page2Form.find("input[name='first_child']").val(firstChild);
+        // page2Form.find("input[name='next_child']").val(nextChild);
+        // page2Form.find("input[name='multi_child']").val(multiChild);
+        // page2Form.find("input[name='on_behalf']").val(onBehalf);
+        // page2Form.find("input[name='other']").val(other);
+
 
         toggleEmarsysSpinner(true);
 
@@ -106,7 +113,7 @@ $(document).ready(function() {
 
 });
 
-function submitEmarsysNewsletterSignup(url, email, country, optIn,  firstName, lastName, success, complete) {
+function submitEmarsysNewsletterSignup(url, email, country, optIn,  firstName, lastName, success, complete, expecting, first_child, next_child, multi_child, on_behalf, other) {
 
     var rawData = {
         'email': email,
@@ -114,6 +121,12 @@ function submitEmarsysNewsletterSignup(url, email, country, optIn,  firstName, l
         'opt_in': optIn,
         'first_name': firstName,
         'last_name': lastName
+        // 'expecting': expecting,
+        // 'first_child': firstChild,
+        // 'next_child': nextChild,
+        // 'multi_child': multiChild,
+        // 'on_behalf': onBehalf,
+        // 'other': other    
     };
 
     var json = JSON.stringify(rawData);

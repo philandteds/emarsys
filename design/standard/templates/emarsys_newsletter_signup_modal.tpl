@@ -3,10 +3,6 @@
 {* TODO style this dialog *}
 {literal}
 <style>
-    #emarsys-newsletter-signup-modal .help-block.form-error {
-        display: none;
-    }
-
     #emarsys-newsletter-signup-modal .has-error label, label.has-error {
         color: red;
     }
@@ -22,58 +18,37 @@
     {* page one of the dialog *}
     <form id="emarsys-newsletter-signup" method="post" action={'emarsys/signup'|ezurl}  class="page-1">
         <div class="emarsys-form-wrapper">
-            <div class="">
+            <div class="emarsys-form-wrapper--inner">
                 <div class="">
                     <h4>{'join the family!'|i18n('extension/pt')}</h4>
-                    <p>{'sign up to receive updates about new products and promotions!'|i18n('extension/pt')}</p>
+                    <h5>{'sign up to receive updates about new products and promotions!'|i18n('extension/pt')}</h5>
                 </div>
-            </div>
-
-            <div class="field-holder"> {* groups the fields into a unit. Hidden by JS on successful submission. *}
-                <div class=" ">
-                    <div>
-                    	<p>{'Email'|i18n('extension/pt')} <span class="required">*</span></p>
+                <div class="field-holder"> {* groups the fields into a unit. Hidden by JS on successful submission. *}
+                    <div class=" ">  
+                        <input type="email" name="email" placeholder="{'Email'|i18n('extension/pt')}" required class="form-control" data-validation="required" data-validation-error-msg="{'Please enter your email address'|i18n('extension/pt')}"/>
                     </div>
                     <div class="">
-                        <input type="email" name="email" required class="form-control" data-validation="required" data-validation-error-msg="{'Please enter your email address'|i18n('extension/pt')}"/>
+                        <input type="text" name="first_name" placeholder="{'First Name'|i18n('extension/pt')}" required class="form-control" data-validation="required" data-validation-error-msg="{'Please enter your first name'|i18n('extension/pt')}"/>
                     </div>
-                </div>
-                <div class=" ">
-					<div>
-						<p>{'First Name'|i18n('extension/pt')} <span class="required">*</span></p>
-						</div>
-                    <div class="">
-                        <input type="text" name="first_name" required class="form-control" data-validation="required" data-validation-error-msg="{'Please enter your first name'|i18n('extension/pt')}"/>
-                    </div>
-                </div>
-
-                <div class="">
-					<div>
-						<p>{'Country'|i18n('extension/pt')} <span class="required">*</span></p>
-					</div>
                     <div class="">
                         <select name="country" class="form-control" data-validation="required">
-                            <option value=""></option>
-
+                            <option value="Select a country" disabled selected>Select a country</option>
                             {foreach $countries as $country}
                                 <option value="{$country|wash(xhtml)}">{$country|wash(xhtml)}</option>
                             {/foreach}
                         </select>
                     </div>
+                    <div class="">
+                        <input id="opt_in" name="opt_in" type="checkbox" required data-validation="required" data-validation-error-msg="{'To sign up the newsletter, you must agree to receive emails'|i18n('extension/pt')}">
+                        <label for="opt_in">I agree to receive email from phil&amp;teds</label>
+                    </div>
+                    <div class="">
+                        <input id="accept_privacy_policy" name="accept_privacy_policy" type="checkbox" required data-validation="required" data-validation-error-msg="{'To sign up the newsletter, you must agree to receive emails'|i18n('extension/pt')}">
+                        <label for="accept_privacy_policy">I agree to the phil&amp;teds <a href={"/Support/Privacy-Policy"|ezurl} target="_blank">Privacy Policy</a></label>
+                    </div>
                 </div>
-
-                <div class="">
-                    <div class=""><label><input name="opt_in" type="checkbox" required data-validation="required" data-validation-error-msg="{'To sign up the newsletter, you must agree to receive emails'|i18n('extension/pt')}"> I agree to receive email from phil&amp;teds</label></div>
-                </div>
-                <div class="">
-                    <div class=""><label><input name="accept_privacy_policy" type="checkbox" required data-validation="required" data-validation-error-msg="{'To sign up the newsletter, you must agree to receive emails'|i18n('extension/pt')}"> I agree to the phil&amp;teds <a href={"/Support/Privacy-Policy"|ezurl} target="_blank">Privacy Policy</a></label></div>
-                </div>
-
-            </div>
-
-            <div class="">
-                <div class="">
-                    <button type="submit" class="btn btn-primary submit">{'Subscribe'|i18n('extension/pt')}</button>
+                <div class="emarsys-form-footer">
+                    <button type="submit" class="btn btn-big submit">{'Subscribe'|i18n('extension/pt')}</button>
                     <img src={"/icons/spiffygif_24x24.gif"|ezimage} alt="" class="emarsys-spinner" style="display:none;"/>
                 </div>
             </div>
@@ -83,21 +58,48 @@
     {* Demographics page *}
     <form id="emarsys-newsletter-signup-page-2" class="page-2" method="post" action={'emarsys/demographics'|ezurl}>
 
-        <div class="row">
-            <div class="col-xs-12">
-                <h2>{'A little more about me...'|i18n('extension/pt')}</h2>
+        <div class="emarsys-form-wrapper">
+            <div class="emarsys-form-wrapper--inner">
+                <div class="">
+                    <h4>{'welcome to the family!'|i18n('extension/pt')}</h4>
+                    <h5>{'so we can send some information that\'s actually useful to you, it would really help to know a little about you and your family'|i18n('extension/pt')}</h5>
+                </div>
+                <div class="field-holder"> {* groups the fields into a unit. Hidden by JS on successful submission. *}
+                   
+                    <div class="">
+                        <input id="expecting" name="expecting" type="checkbox" value="0">
+                        <label for="expecting">I am expecting my first child</label>
+                    </div>
+                    <div class="">
+                        <input id="first_child" name="first_child" type="checkbox" value="0">
+                        <label for="first_child">I have my first child</label>
+                    </div>
+                    <div class="">
+                        <input id="next_child" name="next_child" type="checkbox" value="0">
+                        <label for="next_child">I am expecting my next child</label>
+                    </div>
+                    <div class="">
+                        <input id="multi_child" name="multi_child" type="checkbox" value="0">
+                        <label for="multi_child">I have more than one child</label>
+                    </div>
+                    <div class="">
+                        <input id="on_behalf" name="on_behalf" type="checkbox" value="0">
+                        <label for="on_behalf">I'm shopping for someone else</label>
+                    </div>
+                    <div class="">
+                        <input id="other" name="other" type="checkbox" value="0">
+                        <label for="other">other</label>
+                    </div>
+                </div>
+                <div class="emarsys-form-footer">
+                    <button type="submit" class="btn btn-big submit">{'Subscribe'|i18n('extension/pt')}</button>
+                    <img src={ "/icons/spiffygif_24x24.gif"|ezimage} alt="" class="emarsys-spinner" style="display:none;" />
+                </div>
             </div>
         </div>
-
         {include uri="design:demographics.tpl"}
 
-        <div class="row form-group">
-            <div class="col-xs-12">
-                <input name="SubmitButton" type="submit" class="demographic-submit btn" value="{'Subscribe'|i18n('extension/pt')}"/>
-                <img src={"/icons/spiffygif_24x24.gif"|ezimage} alt="" class="emarsys-spinner" style="display:none;"/>
-            </div>
-        </div>
-
+       
         <input name="email" type="hidden" value=""/>
     </form>
 
