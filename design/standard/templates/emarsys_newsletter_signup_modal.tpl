@@ -103,18 +103,8 @@
 
     {* Thank you page *}
     <div class="page-2-success">
-
-        <div class="row form-group">
-            <div class="col-xs-12">
-                <h4>{'Thanks for signing up'|i18n('extension/pt')}</h4>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-xs-12 text-center">
-                <p>{'Welcome to the family!'|i8n('extension/pt')}</p>
-            </div>
-        </div>
+        <h4>{'Thanks for signing up'|i18n('extension/pt')}</h4>
+        <h5 class="text-center">{'Welcome to the family!'|i8n('extension/pt')}</h5>
     </div>
 
 
