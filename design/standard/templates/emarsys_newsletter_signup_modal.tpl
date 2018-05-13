@@ -1,4 +1,4 @@
-{* modal popup that allows for a newsletter signup. Uses fancybox for the modal and bootstrap classes for the responsive layout. *}
+ {* modal popup that allows for a newsletter signup. Uses fancybox for the modal and bootstrap classes for the responsive layout. *}
 
 {literal}
 <style>
@@ -9,6 +9,7 @@
 {/literal}
 
 {def $countries = ezini('CountrySettings','Countries', 'content.ini' )}
+{def $emarsysContent = ezini('EmarsysContentSettings', 'emarsys-content', 'emarsys.ini')}
 
 
 <div id="emarsys-newsletter-signup-modal" tabindex="-1" role="dialog" style="display:none;">
@@ -19,8 +20,8 @@
         <div class="emarsys-form-wrapper">
             <div class="emarsys-form-wrapper--inner">
                 <div class="">
-                    <h4>{'join the family!'|i18n('extension/pt')}</h4>
-                    <h5>{'sign up to receive updates about new products and promotions!'|i18n('extension/pt')}</h5>
+                    <!-- <h4>{'join the family!'|i18n('extension/pt')}</h4> -->
+                    <h5>{'you’ll get the latest news &amp; exclusive promotions straight to your inbox.'|i18n('extension/pt')}</h5>
                 </div>
                 <div class="field-holder"> {* groups the fields into a unit. Hidden by JS on successful submission. *}
                     <div class=" ">  
@@ -39,11 +40,8 @@
                     </div>
                     <div class="">
                         <input id="opt_in" name="opt_in" type="checkbox" required data-validation="required" data-validation-error-msg="{'To sign up the newsletter, you must agree to receive emails'|i18n('extension/pt')}">
-                        <label for="opt_in">I agree to receive email from phil&amp;teds</label>
-                    </div>
-                    <div class="">
-                        <input id="accept_privacy_policy" name="accept_privacy_policy" type="checkbox" required data-validation="required" data-validation-error-msg="{'To sign up the newsletter, you must agree to receive emails'|i18n('extension/pt')}">
-                        <label for="accept_privacy_policy">I agree to the phil&amp;teds <a href={"/Support/Privacy-Policy"|ezurl} target="_blank">Privacy Policy</a></label>
+                        <label for="opt_in">sign me up for the latest news! (you can unsubscribe at any time). see our <a href="../Support/Privacy-Policy" class="emarsys-popup-link">Privacy Policy</a> and <a href="../Support/Privacy-Policy" class="emarsys-popup-link">Terms &amp; Conditions</a>
+                        for more details</label>
                     </div>
                 </div>
                 <div class="emarsys-form-footer">
