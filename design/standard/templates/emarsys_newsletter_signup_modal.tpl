@@ -39,7 +39,7 @@
                         </select>
                     </div>
                     <div class="">
-                        <input id="opt_in" name="opt_in" type="checkbox" required data-validation="required" data-validation-error-msg="{'To sign up the newsletter, you must agree to receive emails'|i18n('extension/pt')}">
+                        <input id="opt_in" name="opt_in" type="checkbox" required data-validation="required" data-validation-error-msg="{'To sign up to the newsletter, you must agree to receive emails'|i18n('extension/pt')}">
                         <label for="opt_in">sign me up for the latest news! (you can unsubscribe at any time). see our <a href="../Support/Privacy-Policy" class="emarsys-popup-link">Privacy Policy</a> and <a href="../Support/Privacy-Policy" class="emarsys-popup-link">Terms &amp; Conditions</a>
                         for more details</label>
                     </div>
