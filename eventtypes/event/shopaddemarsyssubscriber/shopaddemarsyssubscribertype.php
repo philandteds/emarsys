@@ -67,9 +67,10 @@ class ShopAddEmarsysSubscriberType extends eZWorkflowEventType {
                     EmarsysClient::EMAIL_ADDRESS_FIELD_NAME => (string)$accountInfo->email,
                     EmarsysClient::FIRST_NAME_FIELD_NAME => (string)$accountInfo->first_name,
                     EmarsysClient::LAST_NAME_FIELD_NAME => (string)$accountInfo->last_name,
-                    EmarsysClient::COUNTRY_FIELD_NAME => (string)$accountInfo->country,
-                    "zipcode" => (string)$accountInfo->zip,
+                    "street_address" => implode(", ", array($accountInfo->address1, $accountInfo->address2)),
                     "city" => (string)$accountInfo->city,
+                    "zipcode" => (string)$accountInfo->zip,
+                    EmarsysClient::COUNTRY_FIELD_NAME => (string)$accountInfo->country,
                     EmarsysClient::EMAIL_SUBSCRIPTION_FIELD_NAME => true, // opt in
                     "contact_source" => "Webshop Checkout"
                 )

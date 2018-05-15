@@ -194,7 +194,6 @@ class EmarsysClient
                     } else {
                         $eZMappings[$eZFieldName] = $value;
                     }
-
                 }
             }
         }
