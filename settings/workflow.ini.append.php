@@ -3,5 +3,6 @@
 [EventSettings]
 ExtensionDirectories[]=emarsys
 AvailableEventTypes[]=event_sendemarsyscontact
+AvailableEventTypes[]=event_shopaddemarsyssubscriber
 
 */ ?>
