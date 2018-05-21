@@ -35,7 +35,13 @@ $(document).ready(function() {
             href: "#emarsys-newsletter-signup-modal",
             wrapCSS: 'emarsys',
             autoCenter: true,
-            padding: 0
+            padding: 0,
+            fixed: false,
+            transitionIn: 'elastic',
+            transitionOut: 'elastic',
+            margin: 0,
+            autoScale: false,
+            autoDimensions: false
         });
 
         $.validate({
