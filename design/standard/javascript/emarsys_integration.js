@@ -34,14 +34,20 @@ $(document).ready(function() {
         $.fancybox({ 
             href: "#emarsys-newsletter-signup-modal",
             wrapCSS: 'emarsys',
-            autoCenter: true,
+            autoCenter: false,
             padding: 0,
-            fixed: false,
+            fixed: true,
             transitionIn: 'elastic',
             transitionOut: 'elastic',
             margin: 0,
             autoScale: false,
-            autoDimensions: false
+            autoDimensions: false,
+            beforeShow: function() {
+                $("body").css({'overflow-y':'hidden'});
+            },
+            afterClose: function(){
+                $("body").css({'overflow-y':'visible'});
+            }
         });
 
         $.validate({
