@@ -31,7 +31,7 @@ $(document).ready(function() {
         } catch (err) {}
 
         // the standard fancybox approach of attaching to a <a> tag does not work. Manually trigger the fancybox.
-        $.fancybox({ 
+        $.fancybox({
             href: "#emarsys-newsletter-signup-modal",
             wrapCSS: 'emarsys',
             autoCenter: false,
@@ -42,11 +42,11 @@ $(document).ready(function() {
             margin: 0,
             autoScale: false,
             autoDimensions: false,
-            beforeShow: function() {
-                $("body").css({'overflow-y':'hidden'});
+            beforeShow: function () {
+                $("body").css({ 'overflow-y': 'hidden' });
             },
-            afterClose: function(){
-                $("body").css({'overflow-y':'visible'});
+            afterClose: function () {
+                $("body").css({ 'overflow-y': 'visible' });
             }
         });
 
