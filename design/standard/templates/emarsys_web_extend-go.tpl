@@ -3,8 +3,7 @@
     {def $live_hostname = ''}
 {/if}
 {if and( $live_hostname|ne(''), ezini( 'SiteSettings', 'SiteURL', 'site.ini' )|begins_with($live_hostname)|not )} ScarabQueue.push(['testMode']);{/if}
-console.log("ScarabQueue.length="+ScarabQueue.length);
-if (typeof ScarabQueue.length != undefined){ldelim}
+if (ScarabQueue.length > 0){ldelim}
     ScarabQueue.push(['go']);
 {rdelim}
 </script>
