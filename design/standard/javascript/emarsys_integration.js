@@ -42,11 +42,19 @@ $(document).ready(function() {
             margin: 0,
             autoScale: false,
             autoDimensions: false,
+            scrolling: 'hidden',
             beforeShow: function () {
+                $("html").css({ 'position': 'fixed' });
                 $("body").css({ 'overflow-y': 'hidden' });
             },
             afterClose: function () {
+                $("html").css({ 'position': 'relative' });
                 $("body").css({ 'overflow-y': 'visible' });
+            },
+            helpers: {
+                overlay: {
+                    locked: true
+                }
             }
         });
 
