@@ -60,7 +60,10 @@ $(document).ready(function() {
 
         $.validate({
             form: "form#emarsys-newsletter-signup, form#emarsys-newsletter-signup-page-2",
-            errorMessagePosition: 'inline'
+            errorMessagePosition: 'inline',
+            rules: {
+                email: true
+            }
         });
     });
 

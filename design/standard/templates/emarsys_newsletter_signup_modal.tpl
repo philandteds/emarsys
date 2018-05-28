@@ -90,6 +90,7 @@
                 <div class="emarsys-form-footer">
                     <button type="submit" class="btn btn-big submit demographic-submit">{'update'|i18n('extension/pt')}</button>
                     <img src={"/icons/spiffygif_24x24.gif"|ezimage} alt="" class="emarsys-spinner" style="display:none;" />
+                    <button type="submit" class="btn btn--decline demographic-submit">{'No thanks x'|i18n('extension/pt')}</button>
                 </div>
             </div>
         </div>
