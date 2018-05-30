@@ -7,6 +7,11 @@
  * Time: 12:27 PM
  */
 
+
+// Emarsys signup disabled pending fix
+$result = true;
+
+/*
 $result = false;
 
 // read JSON
@@ -39,7 +44,7 @@ try {
 
 } catch (Exception $e) {
     $result = false;
-}
+}*/
 
 print(json_encode($result));
 eZExecution::cleanExit();
