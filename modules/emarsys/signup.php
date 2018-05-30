@@ -28,7 +28,7 @@ try {
             $emarsysClient->minimalSubscribe(
                 $requestJson['email'],
                 $requestJson['country'],
-                $requestJson['opt_in'] ?: true,
+                $requestJson['opt_in'],
                 $requestJson['first_name'],
                 $requestJson['last_name']
             );
