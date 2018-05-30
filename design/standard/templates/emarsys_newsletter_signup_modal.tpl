@@ -25,7 +25,7 @@
                 </div>
                 <div class="field-holder"> {* groups the fields into a unit. Hidden by JS on successful submission. *}
                     <div class=" ">  
-                        <input type="email" name="email" placeholder="{'Email'|i18n('extension/pt')}" required class="form-control" data-validation="required" data-validation-error-msg="{'Please enter your email address'|i18n('extension/pt')}"/>
+                        <input type="email" name="email" placeholder="{'Email'|i18n('extension/pt')}" required class="form-control" data-validation="email" data-validation-error-msg="{'Please enter your email address'|i18n('extension/pt')}"/>
                     </div>
                     <div class="">
                         <input type="text" name="first_name" placeholder="{'First Name'|i18n('extension/pt')}" required class="form-control" data-validation="required" data-validation-error-msg="{'Please enter your first name'|i18n('extension/pt')}"/>
