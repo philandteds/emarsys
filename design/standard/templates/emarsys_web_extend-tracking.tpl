@@ -1,4 +1,9 @@
-{def $merchantID = ezini('WebExtend','MerchantID','emarsys.ini')}
+{def 
+    $merchantID = ezini('WebExtend','MerchantID','emarsys.ini')
+    $locale = ezini('RegionalSettings','ContentObjectLocale')
+    $locale_ini = concat( $locale, '.ini' )
+}
+
 {set-block variable=$breadcrumbs}
     {for 2 to $module_result.path|count|dec as $i}{$module_result.path[$i].text|wash}{delimiter} > {/delimiter}{/for}
 {/set-block}
@@ -12,5 +17,6 @@ var ScarabQueue = ScarabQueue || [];
   fs.parentNode.insertBefore(js, fs);
 {rdelim})('scarab-js-api');
 var e_category = "{$breadcrumbs|trim()}";
+ScarabQueue.push(['tag', '{ezini('HTTP','ContentLanguage', $locale_ini, 'share/locale',true())|explode('-')|implode('_')}']);
 </script>
 
