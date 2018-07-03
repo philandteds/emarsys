@@ -20,31 +20,31 @@
         <div class="emarsys-form-wrapper">
             <div class="emarsys-form-wrapper--inner">
                 <div class="">
-                    <!-- <h4>{'join the family!'|i18n('extension/pt')}</h4> -->
-                    <h5>{'you’ll get the latest news &amp; exclusive promotions straight to your inbox.'|i18n('extension/pt')}</h5>
+                    <!-- <h4>{'join the family!'|i18n('extension/emarsys')}</h4> -->
+                    <h5>{'you’ll get the latest news &amp; exclusive promotions straight to your inbox.'|i18n('extension/emarsys')}</h5>
                 </div>
                 <div class="field-holder"> {* groups the fields into a unit. Hidden by JS on successful submission. *}
                     <div class=" ">  
-                        <input type="email" name="email" placeholder="{'Email'|i18n('extension/pt')}" required class="form-control" data-validation="email" data-validation-error-msg="{'Please enter your email address'|i18n('extension/pt')}"/>
+                        <input type="email" name="email" placeholder="{'Email'|i18n('extension/emarsys')}" required class="form-control" data-validation="email" data-validation-error-msg="{'Please enter your email address'|i18n('extension/emarsys')}"/>
                     </div>
                     <div class="">
-                        <input type="text" name="first_name" placeholder="{'First Name'|i18n('extension/pt')}" required class="form-control" data-validation="required" data-validation-error-msg="{'Please enter your first name'|i18n('extension/pt')}"/>
+                        <input type="text" name="first_name" placeholder="{'First Name'|i18n('extension/emarsys')}" required class="form-control" data-validation="required" data-validation-error-msg="{'Please enter your first name'|i18n('extension/emarsys')}"/>
                     </div>
                     <div class="">
                         <select name="country" class="form-control" data-validation="required">
-                            <option value="Select a country" disabled selected>Select a country</option>
+                            <option value="Select a country" disabled select="selected">Select a country</option>
                             {foreach $countries as $country}
                                 <option value="{$country|wash(xhtml)}">{$country|wash(xhtml)}</option>
                             {/foreach}
                         </select>
                     </div>
                     <div class="">
-                        <input id="opt_in" name="opt_in" type="checkbox" required data-validation="required" data-validation-error-msg="{'To sign up the newsletter, you must agree to receive emails'|i18n('extension/pt')}">
-                        <label for="opt_in">sign me up for the latest news! (you can unsubscribe at any time). see our <a href="../Support/Privacy-Policy" class="emarsys-popup-link">Privacy Policy</a> for more details</label>
+                        <input id="opt_in" name="opt_in" type="checkbox" required data-validation="required" data-validation-error-msg="{'To sign up the newsletter, you must agree to receive emails'|i18n('extension/emarsys')}">
+                        <label for="opt_in">{sign me up for the latest news! (you can unsubscribe at any time). see our} <a href="../Support/Privacy-Policy" class="emarsys-popup-link">Privacy Policy</a> for more details</label>
                     </div>
                 </div>
                 <div class="emarsys-form-footer">
-                    <button type="submit" class="btn btn-big submit">{'submit'|i18n('extension/pt')}</button>
+                    <button type="submit" class="btn btn-big submit">{'submit'|i18n('extension/emarsys')}</button>
                     <img src={"/icons/spiffygif_24x24.gif"|ezimage} alt="" class="emarsys-spinner" style="display:none;"/>
                 </div>
             </div>
@@ -57,8 +57,8 @@
         <div class="emarsys-form-wrapper">
             <div class="emarsys-form-wrapper--inner">
                 <div class="">
-                    <h4>{'welcome to the family!'|i18n('extension/pt')}</h4>
-                    <h5>{'so we can send some information that\'s actually useful to you, it would really help to know a little about you and your family'|i18n('extension/pt')}</h5>
+                    <h4>{'welcome to the family!'|i18n('extension/emarsys')}</h4>
+                    <h5>{'so we can send some information that\'s actually useful to you, it would really help to know a little about you and your family'|i18n('extension/emarsys')}</h5>
                 </div>
                 <div class="field-holder"> {* groups the fields into a unit. Hidden by JS on successful submission. *}
                    
@@ -88,9 +88,9 @@
                     </div>
                 </div>
                 <div class="emarsys-form-footer">
-                    <button type="submit" class="btn btn-big submit demographic-submit">{'update'|i18n('extension/pt')}</button>
+                    <button type="submit" class="btn btn-big submit demographic-submit">{'update'|i18n('extension/emarsys')}</button>
                     <img src={"/icons/spiffygif_24x24.gif"|ezimage} alt="" class="emarsys-spinner" style="display:none;" />
-                    <button type="submit" class="btn btn--decline demographic-submit">{'No thanks x'|i18n('extension/pt')}</button>
+                    <button type="submit" class="btn btn--decline demographic-submit">{'No thanks x'|i18n('extension/emarsys')}</button>
                 </div>
             </div>
         </div>
@@ -101,8 +101,8 @@
 
     {* Thank you page *}
     <div class="page-2-success">
-        <h4>{'Thanks for signing up'|i18n('extension/pt')}</h4>
-        <h5 class="text-center">{'Welcome to the family!'|i8n('extension/pt')}</h5>
+        <h4>{'Thanks for signing up'|i18n('extension/emarsys')}</h4>
+        <h5 class="text-center">{'Welcome to the family!'|i8n('extension/emarsys')}</h5>
     </div>
 
 
