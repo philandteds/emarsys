@@ -10,6 +10,6 @@ head(function(){
             ScarabQueue.push(['go']);
         }
     }
-    Queue.addTask(allGo,300);
+    Queue.addTask(allGo,1000);
 });
 </script>
