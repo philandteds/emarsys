@@ -2,4 +2,8 @@
 
 [ExtensionSettings]
 DesignExtensions[]=emarsys
+
+[JavaScriptSettings]
+FrontendJavaScriptList[]=timer-queue.js
+
 */ ?>
