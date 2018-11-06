@@ -155,3 +155,88 @@ function submitEmarsysNewsletterSignup(url, email, country, optIn,  firstName, l
         complete: complete
     });
 }
+    function findEmarsysCocoonModal() {
+        return $("#emarsys-cocoon-signup-modal");
+    }
+
+    $(".emarsys-cocoon-signup-modal-trigger").click(function() {
+        // reset the fancybox back to default state, in case it is re-entered
+        var modal = findEmarsysCocoonModal();
+
+        modal.find(".page-1").show();
+        modal.find(".page-2").hide();
+        modal.find(".page-2-success").hide();
+
+        // attempt to default the country box from the siteaccess select list
+        try {
+            var currentSiteaccess = $(".languages-nav-current:first a").text();
+            modal.find("select[name='country']").val(currentSiteaccess);
+        } catch (err) {}
+
+        // the standard fancybox approach of attaching to a <a> tag does not work. Manually trigger the fancybox.
+        $.fancybox({
+            href: "#emarsys-cocoon-signup-modal",
+            wrapCSS: 'emarsys',
+            autoCenter: false,
+            padding: 0,
+            fixed: true,
+            transitionIn: 'elastic',
+            transitionOut: 'elastic',
+            margin: 0,
+            autoScale: false,
+            autoDimensions: false,
+            scrolling: 'hidden',
+            beforeShow: function () {
+                $("html").css({ 'position': 'fixed' });
+                $("body").css({ 'overflow-y': 'hidden' });
+            },
+            afterClose: function () {
+                $("html").css({ 'position': 'relative' });
+                $("body").css({ 'overflow-y': 'visible' });
+            },
+            helpers: {
+                overlay: {
+                    locked: true
+                }
+            }
+        });
+
+        $.validate({
+            form: "form#emarsys-cocoon-signup, form#emarsys-cocoon-signup-page-2",
+            errorMessagePosition: 'inline',
+            rules: {
+                email: true
+            }
+        });
+    });
+
+    $("form#emarsys-cocoon-signup button.submit").click(function() {
+        var form = findEmarsysNewsletterForm();
+        var modal = findEmarsysCocoonModal();
+
+        var valid = form.isValid(null, {}, true);
+        if (!valid) {
+            return false;
+        }
+
+        toggleEmarsysSpinner(true);
+
+        submitEmarsysNewsletterSignup(
+            form.attr("action"),
+            form.find("input[name='email']").val(),
+            form.find("select[name='country']").val(),
+            true, // optIn
+            form.find("input[name='first_name']").val(), // first name
+            form.find("input[name='last_name']").val(), // last name
+            function(result) { // success
+                modal.find(".page-1").hide();
+                modal.find(".page-2").show();
+                } ,
+            function(result) { // complete
+                toggleEmarsysSpinner(false);
+            }
+        );
+
+        return false;
+    });
+
