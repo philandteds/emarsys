@@ -13,7 +13,7 @@ $(document).ready(function() {
     }
 
     function findEmarsysCocoonForm() {
-        return $("form#emarsys-Cocoon-signup");
+        return $("form#emarsys-cocoon-signup");
     }
 
     function findEmarsysNewsletterFormPage2() {

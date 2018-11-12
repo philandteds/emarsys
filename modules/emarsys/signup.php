@@ -24,6 +24,15 @@ try {
             // handle sign up
 
             $emarsysClient = new EmarsysClient();
+            // sort out any undefined variables
+            $variableChecks = array(
+                'email', 'country', 'opt_in', 'first_name', 'last_name'
+            );
+            foreach ($variableChecks as $check) {
+                if (!isset($requestJson[$check])) {
+                    $requestJson[$check] = null;
+                }
+            }
 
             $emarsysClient->minimalSubscribe(
                 $requestJson['email'],
