@@ -12,6 +12,10 @@ $(document).ready(function() {
         return $("form#emarsys-newsletter-signup");
     }
 
+    function findEmarsysCocoonForm() {
+        return $("form#emarsys-Cocoon-signup");
+    }
+
     function findEmarsysNewsletterFormPage2() {
         return $("form#emarsys-newsletter-signup-page-2");
     }
@@ -125,36 +129,6 @@ $(document).ready(function() {
         return false;
     });
 
-
-
-});
-
-function submitEmarsysNewsletterSignup(url, email, country, optIn,  firstName, lastName, success, complete, expecting, first_child, next_child, multi_child, on_behalf, other) {
-
-    var rawData = {
-        'email': email,
-        'country': country,
-        'opt_in': optIn,
-        'first_name': firstName,
-        'last_name': lastName
-        // 'expecting': expecting,
-        // 'first_child': firstChild,
-        // 'next_child': nextChild,
-        // 'multi_child': multiChild,
-        // 'on_behalf': onBehalf,
-        // 'other': other    
-    };
-
-    var json = JSON.stringify(rawData);
-
-    $.ajax({
-        method: 'post',
-        url: url,
-        data: json,
-        success: success,
-        complete: complete
-    });
-}
     function findEmarsysCocoonModal() {
         return $("#emarsys-cocoon-signup-modal");
     }
@@ -164,7 +138,6 @@ function submitEmarsysNewsletterSignup(url, email, country, optIn,  firstName, l
         var modal = findEmarsysCocoonModal();
 
         modal.find(".page-1").show();
-        modal.find(".page-2").hide();
         modal.find(".page-2-success").hide();
 
         // attempt to default the country box from the siteaccess select list
@@ -199,10 +172,10 @@ function submitEmarsysNewsletterSignup(url, email, country, optIn,  firstName, l
                     locked: true
                 }
             }
-        });
+        }); 
 
         $.validate({
-            form: "form#emarsys-cocoon-signup, form#emarsys-cocoon-signup-page-2",
+            form: "form#emarsys-cocoon-signup",
             errorMessagePosition: 'inline',
             rules: {
                 email: true
@@ -210,8 +183,9 @@ function submitEmarsysNewsletterSignup(url, email, country, optIn,  firstName, l
         });
     });
 
-    $("form#emarsys-cocoon-signup button.submit").click(function() {
-        var form = findEmarsysNewsletterForm();
+    $("form#emarsys-cocoon-signup button.submit").click(function(e) {
+        e.preventDefault();
+        var form = findEmarsysCocoonForm();
         var modal = findEmarsysCocoonModal();
 
         var valid = form.isValid(null, {}, true);
@@ -230,13 +204,43 @@ function submitEmarsysNewsletterSignup(url, email, country, optIn,  firstName, l
             form.find("input[name='last_name']").val(), // last name
             function(result) { // success
                 modal.find(".page-1").hide();
-                modal.find(".page-2").show();
-                } ,
+                modal.find(".page-2-success").show();
+            } ,
             function(result) { // complete
                 toggleEmarsysSpinner(false);
-            }
+             }
         );
 
         return false;
     });
 
+
+
+});
+
+function submitEmarsysNewsletterSignup(url, email, country, optIn,  firstName, lastName, success, complete, expecting, first_child, next_child, multi_child, on_behalf, other) {
+
+    var rawData = {
+        'email': email,
+        'country': country,
+        'opt_in': optIn,
+        'first_name': firstName,
+        'last_name': lastName
+        // 'expecting': expecting,
+        // 'first_child': firstChild,
+        // 'next_child': nextChild,
+        // 'multi_child': multiChild,
+        // 'on_behalf': onBehalf,
+        // 'other': other    
+    };
+
+    var json = JSON.stringify(rawData);
+
+    $.ajax({
+        method: 'post',
+        url: url,
+        data: json,
+        success: success,
+        complete: complete
+    });
+}
