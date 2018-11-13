@@ -208,7 +208,14 @@ $(document).ready(function() {
             } ,
             function(result) { // complete
                 toggleEmarsysSpinner(false);
-             }
+             },
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            form.find("input[name='luxury_collection_sign_ups']").val()
         );
 
         return false;
@@ -218,14 +225,17 @@ $(document).ready(function() {
 
 });
 
-function submitEmarsysNewsletterSignup(url, email, country, optIn,  firstName, lastName, success, complete, expecting, first_child, next_child, multi_child, on_behalf, other) {
+function submitEmarsysNewsletterSignup(url, email, country, optIn,
+    firstName, lastName, success, complete, expecting, first_child,
+    next_child, multi_child, on_behalf, other, luxury_collection_sign_ups) {
 
     var rawData = {
         'email': email,
         'country': country,
         'opt_in': optIn,
         'first_name': firstName,
-        'last_name': lastName
+        'last_name': lastName,
+        'luxury_collection_sign_ups': luxury_collection_sign_ups
         // 'expecting': expecting,
         // 'first_child': firstChild,
         // 'next_child': nextChild,
