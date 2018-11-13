@@ -12,8 +12,8 @@ $(document).ready(function() {
         return $("form#emarsys-newsletter-signup");
     }
 
-    function findEmarsysCocoonForm() {
-        return $("form#emarsys-cocoon-signup");
+    function findEmarsysLuxuryForm() {
+        return $("form#emarsys-luxury-signup");
     }
 
     function findEmarsysNewsletterFormPage2() {
@@ -129,13 +129,13 @@ $(document).ready(function() {
         return false;
     });
 
-    function findEmarsysCocoonModal() {
-        return $("#emarsys-cocoon-signup-modal");
+    function findEmarsysLuxuryModal() {
+        return $("#emarsys-luxury-signup-modal");
     }
 
-    $(".emarsys-cocoon-signup-modal-trigger").click(function() {
+    $(".emarsys-luxury-signup-modal-trigger").click(function() {
         // reset the fancybox back to default state, in case it is re-entered
-        var modal = findEmarsysCocoonModal();
+        var modal = findEmarsysLuxuryModal();
 
         modal.find(".page-1").show();
         modal.find(".page-2-success").hide();
@@ -148,7 +148,7 @@ $(document).ready(function() {
 
         // the standard fancybox approach of attaching to a <a> tag does not work. Manually trigger the fancybox.
         $.fancybox({
-            href: "#emarsys-cocoon-signup-modal",
+            href: "#emarsys-luxury-signup-modal",
             wrapCSS: 'emarsys',
             autoCenter: false,
             padding: 0,
@@ -175,7 +175,7 @@ $(document).ready(function() {
         }); 
 
         $.validate({
-            form: "form#emarsys-cocoon-signup",
+            form: "form#emarsys-luxury-signup",
             errorMessagePosition: 'inline',
             rules: {
                 email: true
@@ -183,10 +183,10 @@ $(document).ready(function() {
         });
     });
 
-    $("form#emarsys-cocoon-signup button.submit").click(function(e) {
+    $("form#emarsys-luxury-signup button.submit").click(function(e) {
         e.preventDefault();
-        var form = findEmarsysCocoonForm();
-        var modal = findEmarsysCocoonModal();
+        var form = findEmarsysLuxuryForm();
+        var modal = findEmarsysLuxuryModal();
 
         var valid = form.isValid(null, {}, true);
         if (!valid) {
