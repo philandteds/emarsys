@@ -32,6 +32,13 @@ $(document).ready(function() {
         try {
             var currentSiteaccess = $(".languages-nav-current:first a").text();
             modal.find("select[name='country']").val(currentSiteaccess);
+            // if i18n has taken place check the option text
+            if (!modal.find("select[name='country']").val()) {
+                var country = currentSiteaccess.split(' ('); // blame Canada
+                if (country[0]) {
+                    modal.find("select option:contains(" + country[0] + ")").attr('selected', true);
+                }
+            }
         } catch (err) {}
 
         // the standard fancybox approach of attaching to a <a> tag does not work. Manually trigger the fancybox.
