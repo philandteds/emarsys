@@ -21,6 +21,7 @@ class EmarsysClient
     const COUNTRY_FIELD_NAME = "country";
     const FIRST_NAME_FIELD_NAME = "first_name";
     const LAST_NAME_FIELD_NAME = "last_name";
+    const LUXURY_COLLECTION_SIGN_UPS = "luxury_collection_sign_ups";
 
     static $supportedClassIdentifiers = array('user', 'address', 'consumer_profile');
 
@@ -83,14 +84,15 @@ class EmarsysClient
     }
 
 
-    public function minimalSubscribe($email, $country, $optIn, $firstName, $lastName) {
+    public function minimalSubscribe($email, $country, $optIn, $firstName, $lastName, $luxuryPreLaunch) {
 
         $subscriptionInput = array(
             self::EMAIL_ADDRESS_FIELD_NAME => $email,
             self::COUNTRY_FIELD_NAME => $country,
             self::EMAIL_SUBSCRIPTION_FIELD_NAME => $optIn,
             self::FIRST_NAME_FIELD_NAME => $firstName,
-            self::LAST_NAME_FIELD_NAME => $lastName
+            self::LAST_NAME_FIELD_NAME => $lastName,
+            self::LUXURY_COLLECTION_SIGN_UPS => $luxuryPreLaunch
         );
 
         $mapping = array ();
