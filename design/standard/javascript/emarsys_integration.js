@@ -16,7 +16,7 @@ $(document).ready(function() {
         return $("form#emarsys-newsletter-signup-page-2");
     }
 
-    $(".emarsys-newsletter-signup-modal-trigger").click(function() {
+    $(".emarsys-newsletter-signup-modal-trigger, a[data-emarsys]").click(function() {
         // reset the fancybox back to default state, in case it is re-entered
         var modal = findEmarsysModal();
 
