@@ -76,6 +76,13 @@ $(document).ready(function() {
             return false;
         }
 
+        // skip the second page
+        var url = window.location.href;
+        if (url.indexOf("subscribe_to_newsletter") > 0) {
+            $("form#emarsys-newsletter-signup-page-2 .demographic-submit").click();
+        }
+
+
         toggleEmarsysSpinner(true);
 
         submitEmarsysNewsletterSignup(
@@ -87,8 +94,11 @@ $(document).ready(function() {
             form.find("input[name='last_name']").val(), // last name
             function(result) { // success
                 modal.find(".page-1").hide();
-                modal.find(".page-2").show();
-                } ,
+                // do not show second page to for direct link
+                if (url.indexOf("subscribe_to_newsletter") < 0) {
+                    modal.find(".page-2").show();
+                }
+            },
             function(result) { // complete
                 toggleEmarsysSpinner(false);
             }
@@ -155,3 +165,11 @@ function submitEmarsysNewsletterSignup(url, email, country, optIn,  firstName, l
         complete: complete
     });
 }
+
+$(window).load(function (e) {
+    // load the page with the subscribe modal open
+    var url = window.location.href;
+    if (url.indexOf("subscribe_to_newsletter") > 0) {
+        $("a[data-emarsys]").first().click();
+    }
+});
