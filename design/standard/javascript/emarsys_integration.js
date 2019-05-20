@@ -79,6 +79,7 @@ $(document).ready(function() {
         // skip the second page
         var url = window.location.href;
         if (url.indexOf("subscribe_to_newsletter") > 0) {
+            modal.find(".page-2").hide();
             $("form#emarsys-newsletter-signup-page-2 .demographic-submit").click();
         }
 
