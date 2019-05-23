@@ -28,6 +28,18 @@ $(document).ready(function() {
         modal.find(".page-2").hide();
         modal.find(".page-2-success").hide();
 
+        // 4otf add a post variable to the form
+        var url = window.location.href;
+        if (url.indexOf("subscribe_to_4otf") > 0) {
+            var form = findEmarsysNewsletterForm();
+            $('<input>').attr({
+                type: 'hidden',
+                id: 'signup_4otf',
+                name: 'signup_4otf',
+                value: 1
+            }).appendTo(form);
+        }
+
         // attempt to default the country box from the siteaccess select list
         try {
             var currentSiteaccess = $(".languages-nav-current:first a").text();
@@ -93,6 +105,10 @@ $(document).ready(function() {
             modal.find(".page-2").hide();
             $("form#emarsys-newsletter-signup-page-2 .demographic-submit").click();
         }
+        if (url.indexOf("subscribe_to_4otf") > 0) {
+            modal.find(".page-2").hide();
+            $("form#emarsys-newsletter-signup-page-2 .demographic-submit").click();
+        }
 
 
         toggleEmarsysSpinner(true);
@@ -104,10 +120,13 @@ $(document).ready(function() {
             true, // optIn
             form.find("input[name='first_name']").val(), // first name
             form.find("input[name='last_name']").val(), // last name
+            form.find("input[name='signup_4otf']").val(), // 4otf
             function(result) { // success
                 modal.find(".page-1").hide();
                 // do not show second page to for direct link
-                if (url.indexOf("subscribe_to_newsletter") < 0) {
+                if (url.indexOf("subscribe_to_newsletter") > 0 || url.indexOf("subscribe_to_4otf") > 0) {
+                    modal.find(".page-2").hide();
+                } else {
                     modal.find(".page-2").show();
                 }
             },
@@ -220,6 +239,7 @@ $(document).ready(function() {
             true, // optIn
             form.find("input[name='first_name']").val(), // first name
             form.find("input[name='last_name']").val(), // last name
+            form.find("input[name='signup_4otf']").val(), // 4otf
             function(result) { // success
                 modal.find(".page-1").hide();
                 modal.find(".page-2-success").show();
@@ -232,8 +252,7 @@ $(document).ready(function() {
             null,
             null,
             null,
-            null,
-            form.find("input[name='luxury_collection_sign_ups']").val()
+            null
         );
 
         return false;
@@ -244,8 +263,8 @@ $(document).ready(function() {
 });
 
 function submitEmarsysNewsletterSignup(url, email, country, optIn,
-    firstName, lastName, success, complete, expecting, first_child,
-    next_child, multi_child, on_behalf, other, luxury_collection_sign_ups) {
+    firstName, lastName, signup_4otf, success, complete, expecting, first_child,
+    next_child, multi_child, on_behalf, other) {
 
     var rawData = {
         'email': email,
@@ -253,7 +272,8 @@ function submitEmarsysNewsletterSignup(url, email, country, optIn,
         'opt_in': optIn,
         'first_name': firstName,
         'last_name': lastName,
-        'luxury_collection_sign_ups': luxury_collection_sign_ups
+        'signup_4otf': signup_4otf
+        //'luxury_collection_sign_ups': luxury_collection_sign_ups
         // 'expecting': expecting,
         // 'first_child': firstChild,
         // 'next_child': nextChild,
@@ -263,7 +283,6 @@ function submitEmarsysNewsletterSignup(url, email, country, optIn,
     };
 
     var json = JSON.stringify(rawData);
-
     $.ajax({
         method: 'post',
         url: url,
@@ -276,7 +295,10 @@ function submitEmarsysNewsletterSignup(url, email, country, optIn,
 $(window).load(function (e) {
     // load the page with the subscribe modal open
     var url = window.location.href;
-    if (url.indexOf("subscribe_to_newsletter") > 0) {
+    if (url.indexOf("subscribe_to_newsletter") > 0 ) {
+        $("a[data-emarsys]").first().click();
+    }
+    if (url.indexOf("subscribe_to_4otf") > 0 ) {
         $("a[data-emarsys]").first().click();
     }
 });

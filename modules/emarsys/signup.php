@@ -27,7 +27,7 @@ try {
             // sort out any undefined variables
             $variableChecks = array(
                 'email', 'country', 'opt_in', 'first_name', 'last_name',
-                'luxury_collection_sign_ups'
+                'signup_4otf'
             );
             foreach ($variableChecks as $check) {
                 if (!isset($requestJson[$check])) {
@@ -41,7 +41,7 @@ try {
                 $requestJson['opt_in'],
                 $requestJson['first_name'],
                 $requestJson['last_name'],
-                $requestJson['luxury_collection_sign_ups']
+                $requestJson['signup_4otf']
             );
 
             $result = true;
@@ -49,6 +49,8 @@ try {
     }
 
 } catch (Exception $e) {
+    eZLog::write( 'Unexpected error, the message was : ' .
+        $e->getMessage(), 'error.log');
     $result = false;
 }
 
