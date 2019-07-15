@@ -314,8 +314,13 @@ class EmarsysClient
         }
 
         $countryNameToFind = strtolower(trim($countryNameToFind));
+        // May receive the country as a code
+        $country = eZCountryType::fetchCountry( strtoupper($countryNameToFind), 'Alpha3' );
         foreach($this->CountryIDMappings as $countryName => $countryID) {
             if (strtolower($countryName) == $countryNameToFind) {
+                return $countryID;
+            }
+            if (isset($country['Name']) && $countryName == $country['Name']) {
                 return $countryID;
             }
         }
